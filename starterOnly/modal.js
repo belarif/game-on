@@ -178,6 +178,7 @@ function termsValidation() {
 // hide form fields
 function hideFields() {
   const form = document.querySelector("form[name='reserve']");
+  
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const fields = Object.values(formData);
@@ -192,7 +193,6 @@ function hideFields() {
 
 // modal success message
 function successMessage(form) {
-  
   const successMessage = document.querySelector("form p");
 
   successMessage.textContent = "Merci pour votre inscription";
@@ -206,13 +206,13 @@ function successMessage(form) {
   form.addEventListener("submit", (event) => {
     closeModal();
     form.reset();
+    location.reload();
   });
   
 }
 
 // inputs validation
 function validate() {
-
   let first = firstValidation(),
       last = lastValidation(),
       email = emailValidation(),
@@ -223,7 +223,6 @@ function validate() {
   
   if (first && last && email && birthdate && quantity && location && terms) {
     hideFields();
-
   } 
   else {
     return false;
