@@ -42,25 +42,18 @@ function selectLocation() {
   }
 }
 
-// hide effects error
-function removeErrorMessage(span, field) {
-  setTimeout(() => {
-    span.style.display = "none";
-    field.style.border = "none";
-  }, 
-  5000);
-}
-
 // effects error
-function errorMessage(message, formData, field) {
+function errorMessage(message, formData, field, span) {
   const spanElt = document.createElement("span");
   spanElt.textContent = message;
   spanElt.style.color = "#cc0000";
   spanElt.style.fontSize = "1rem";
-  const span = formData.appendChild(spanElt);
+  formData.appendChild(spanElt);
   field.style.border = "2px solid #cc0000";
-
-  removeErrorMessage(span, field);
+ 
+  if(span.length > 0) {
+    spanElt.style.display = "none";
+  }
 }
 
 // first input validation
@@ -70,8 +63,9 @@ function firstValidation() {
   if (!firstField.value.match(/^[a-z]{2,}$/i)) {
     let message = "Le prénom doit contenir que des lettres et en avoir au moins 2";
     const formData = document.querySelector(".modal-body .formData:nth-child(1)");
+    const span = document.querySelectorAll(".formData:nth-child(1) span");
 
-    errorMessage(message, formData, firstField);
+    errorMessage(message, formData, firstField, span);
 
     return false;
   }
@@ -86,8 +80,9 @@ function lastValidation() {
   if (!lastField.value.match(/^[a-z]{2,}$/i)) {
     let message = "Le nom doit contenir que des lettres et en avoir au moins 2";
     const formData = document.querySelector(".modal-body .formData:nth-child(2)");
+    const span = document.querySelectorAll(".formData:nth-child(2) span");
 
-    errorMessage(message, formData, lastField);
+    errorMessage(message, formData, lastField, span);
 
     return false;
   }
@@ -102,8 +97,9 @@ function emailValidation() {
   if (!emailField.value.match(/^[\w\-.]{2,}@[a-zA-Z]{2,}\.[a-zA-Z]{2,4}$/)) {
     let message = "Veuillez saisir une adresse email valide";
     const formData = document.querySelector(".modal-body .formData:nth-child(3)");
+    const span = document.querySelectorAll(".formData:nth-child(3) span");
 
-    errorMessage(message, formData, emailField);
+    errorMessage(message, formData, emailField, span);
 
     return false;
   }
@@ -118,8 +114,9 @@ function birthdateValidation() {
   if (!birthdateField.value.match(/^[\d]{4}-[\d]{2}-[\d]{2}$/)) {
     let message = "Veuillez renseigner votre date de naissance";
     const formData = document.querySelector(".modal-body .formData:nth-child(4)");
+    const span = document.querySelectorAll(".formData:nth-child(4) span");
 
-    errorMessage(message, formData, birthdateField);
+    errorMessage(message, formData, birthdateField, span);
 
     return false;
   }
@@ -134,8 +131,9 @@ function quantityValidation() {
   if (!quantityField.value.match(/^[\d]{1,2}$/)) {
     let message = "Veuillez saisir des chiffres entre 0 et 99";
     const formData = document.querySelector(".modal-body .formData:nth-child(5)");
+    const span = document.querySelectorAll(".formData:nth-child(5) span");
 
-    errorMessage(message, formData, quantityField);
+    errorMessage(message, formData, quantityField, span);
 
     return false;
   }
@@ -150,8 +148,9 @@ function locationValidation() {
   if (selectedLocation.length == 0) {
     let message = "Veuillez cocher un tournoi";
     const formData = document.querySelector(".modal-body .formData:nth-child(7)");
+    const span = document.querySelectorAll(".formData:nth-child(7) > span");
 
-    errorMessage(message, formData, formData);
+    errorMessage(message, formData, formData, span);
 
     return false;
   }
@@ -166,8 +165,9 @@ function termsValidation() {
   if (!terms.checked) {
     let message = "Veuillez accepter les conditions générales";
     const formData = document.querySelector(".modal-body .formData:nth-child(8)");
+    const span = document.querySelectorAll(".formData:nth-child(8) > span");
 
-    errorMessage(message, formData, formData);
+    errorMessage(message, formData, formData, span);
 
     return false;
   }
@@ -223,8 +223,8 @@ function validate() {
   
   if (first && last && email && birthdate && quantity && location && terms) {
     hideFields();
-  } 
-  else {
+
+  } else {
     return false;
   }
 }
