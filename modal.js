@@ -282,3 +282,13 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close modal event
 closeBtn.addEventListener("click", closeModal);
+
+// modal-tools
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.querySelector(".modal-tools");
+  const modalBtn = document.querySelector(".close-modal-tools button");
+
+  modalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+});
